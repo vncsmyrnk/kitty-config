@@ -15,11 +15,11 @@ install-deps:
   elif [ "{{os}}" = "Arch Linux" ]; then
     sudo pacman -S kitty
   fi
-  rm -f ~/.config/kitty/kitty.conf
 
 install: install-deps install-font config
 
 config:
+  rm -f ~/.config/kitty/kitty.conf
   mkdir -p {{home_dir()}}/.config/kitty
   stow -t {{home_dir()}}/.config/kitty .
 
