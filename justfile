@@ -9,7 +9,7 @@ install-deps:
     dest=~/.local/stow
     sudo apt-get install stow curl
     mkdir -p $dest
-    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=$dest
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=$dest launch=n
     cd $dest
     stow kitty.app
   elif [ "{{os}}" = "Arch Linux" ]; then
