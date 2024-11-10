@@ -7,6 +7,9 @@ install-deps:
   #!/bin/bash
   if [ "{{os}}" = "Debian GNU/Linux" ] || [ "{{os}}" = "Ubuntu" ]; then
     dest=~/.local/stow
+    if [ -d  $dest/kitty.app ]; then
+      exit 0
+    fi
     sudo apt-get install stow curl
     mkdir -p $dest
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=$dest launch=n
