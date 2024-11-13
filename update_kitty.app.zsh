@@ -15,6 +15,6 @@ if [[ "$latest_version" == "$current_version" ]]; then
   exit 0
 fi
 
-echo "New version found: $latest_version. Current version is $current_version. New version will be downoaded"
+echo "New version found: $latest_version. Current version is $current_version. New version will be downloaded"
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=~/.local/stow launch=n
 kitty -v
