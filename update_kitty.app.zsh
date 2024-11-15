@@ -2,7 +2,7 @@
 
 # Updates manually installed kitty
 
-if [[ $(which kitty) != "/home/$(whoami)/.local/bin/kitty" ]]; then
+if [[ $(which kitty) != "$HOME/.local/bin/kitty" ]]; then
   exit 0
 fi
 
