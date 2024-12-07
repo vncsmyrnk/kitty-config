@@ -38,5 +38,5 @@ install-font:
   unzip $fonts_path/JetBrainsMono.zip -d $fonts_path
   rm $fonts_path/JetBrainsMono.zip
 
-delete-config:
+unset-config:
   stow -D -t {{home_dir()}}/.config/kitty .
