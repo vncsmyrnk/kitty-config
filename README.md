@@ -1,4 +1,4 @@
-# kitty Config
+# My kitty config
 
 This is my local config for the [kitty](https://sw.kovidgoyal.net/kitty/) terminal emulator.
 
