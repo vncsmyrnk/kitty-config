@@ -3,6 +3,7 @@
 # Updates manually installed kitty
 
 if [[ $(which kitty) != "$HOME/.local/bin/kitty" ]]; then
+  echo "Not manually installed. No check needed."
   exit 0
 fi
 
