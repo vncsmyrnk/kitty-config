@@ -1,5 +1,7 @@
 os := `cat /etc/os-release | grep "^NAME=" | cut -d "=" -f2 | tr -d '"'`
 
+utils_path := "${UTILS_SCRIPTS_DIR:-$HOME/utils}"
+
 default:
   just --list
 
@@ -21,11 +23,6 @@ install-deps:
 
 install: install-deps install-font config
 
-config:
-  rm -f ~/.config/kitty/kitty.conf
-  mkdir -p {{home_dir()}}/.config/kitty
-  stow -t {{home_dir()}}/.config/kitty .
-
 install-font:
   #!/bin/bash
   fonts_path=~/.local/share/fonts/ttf
@@ -38,5 +35,12 @@ install-font:
   unzip $fonts_path/JetBrainsMono.zip -d $fonts_path
   rm $fonts_path/JetBrainsMono.zip
 
+config:
+  @rm -f ~/.config/kitty/kitty.conf
+  mkdir -p {{home_dir()}}/.config/kitty
+  stow -t {{home_dir()}}/.config/kitty . --ignore=utils
+  stow -t {{utils_path}} utils
+
 unset-config:
-  stow -D -t {{home_dir()}}/.config/kitty .
+  stow -D -t {{home_dir()}}/.config/kitty . --ignore=utils
+  stow -D -t {{utils_path}} utils
