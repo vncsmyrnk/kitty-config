@@ -21,6 +21,14 @@ install-deps:
     sudo pacman -S kitty
   fi
 
+# Create an alternative for the default terminal emulator
+set-as-terminal-alternative:
+  sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator ~/.local/bin/kitty 0
+
+# Prompts the default terminal emulator. Be sure the choose kitty
+set-as-default-terminal-alternative:
+  sudo update-alternatives --config x-terminal-emulator
+
 install: install-deps install-font config
 
 install-font:
