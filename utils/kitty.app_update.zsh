@@ -2,7 +2,10 @@
 
 # Updates manually installed kitty
 
-if [[ $(which kitty) != "$HOME/.local/bin/kitty" ]]; then
+STOW_PATH=${STOW_PATH:-"$HOME/.local/stow"}
+KITTY_STOW_PATH=${KITTY_STOW_PATH:-"kitty.app/bin/kitty"}
+
+if [[ $(which kitty) != "$STOW_PATH/$KITTY_STOW_PATH" ]]; then
   echo "Not manually installed. No check needed."
   exit 0
 fi
