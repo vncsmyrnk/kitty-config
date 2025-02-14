@@ -8,40 +8,36 @@ default:
 install-deps:
   #!/bin/bash
   if [ "{{os}}" = "Debian GNU/Linux" ] || [ "{{os}}" = "Ubuntu" ]; then
-    dest=~/.local/stow
-    if [ -d  $dest/kitty.app ]; then
+    STOW_PATH=/usr/local/stow
+    if [ -d  $STOW_PATH/kitty.app ]; then
+      echo "Kitty already installed."
       exit 0
     fi
     sudo apt-get install stow curl
-    mkdir -p $dest
-    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=$dest launch=n
-    cd $dest
+    mkdir -p $STOW_PATH
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin STOW_PATH=/tmp/kitty launch=n
+    sudo install /tmp/kitty $STOW_PATH
+    cd $STOW_PATH
     stow kitty.app
   elif [ "{{os}}" = "Arch Linux" ]; then
     sudo pacman -S kitty
   fi
 
-# Create an alternative for the default terminal emulator
-set-as-terminal-alternative:
-  sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator ~/.local/bin/kitty 0
-
-# Prompts the default terminal emulator. Be sure the choose kitty
-set-as-default-terminal-alternative:
-  sudo update-alternatives --config x-terminal-emulator
+set-as-default-alternative:
+  sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/local/bin/kitty 100
 
 install: install-deps install-font config
 
 install-font:
   #!/bin/bash
-  fonts_path=~/.local/share/fonts/ttf
-  if [ -d  $fonts_path ]; then
-    echo "Already installed at $fonts_path"
+  FONT_PATH=/usr/local/share/fonts/jetbrains
+  if [ -d  $FONT_PATH ]; then
+    echo "Already installed at $FONT_PATH"
     exit 0
   fi
-  mkdir -p $fonts_path
-  curl -LO --output-dir $fonts_path https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
-  unzip $fonts_path/JetBrainsMono.zip -d $fonts_path
-  rm $fonts_path/JetBrainsMono.zip
+  curl -LO --output-dir /tmp https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
+  unzip /tmp/JetBrainsMono.zip -d /tmp/JetBrainsMono
+  sudo cp -r /tmp/JetBrainsMono /usr/local/share/fonts/jetbrains
 
 config:
   @rm -f ~/.config/kitty/kitty.conf
