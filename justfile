@@ -16,9 +16,9 @@ install-deps:
     sudo apt-get install stow curl
     mkdir -p $STOW_PATH
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin STOW_PATH=/tmp/kitty launch=n
-    sudo install /tmp/kitty $STOW_PATH
+    sudo cp -r /tmp/kitty.app $STOW_PATH
     cd $STOW_PATH
-    stow kitty.app
+    sudo stow kitty.app --ignore=lib # Ignores libs as liblzma5 conflicts with /lib
   elif [ "{{os}}" = "Arch Linux" ]; then
     sudo pacman -S kitty
   fi
