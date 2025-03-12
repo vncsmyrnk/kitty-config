@@ -3,9 +3,10 @@
 # Updates manually installed kitty
 
 LOCAL_BIN=${LOCAL_BIN:-"/usr/local/bin"}
-KITTY_STOW_PATH=${KITTY_STOW_PATH:-"kitty"}
+KITTY_BIN=${KITTY_BIN:-"kitty"}
+KITTY_INSTALLATION_PATH=${KITTY_INSTALLATION_PATH:-/usr/local/stow/kitty.app}
 
-if [[ $(which kitty) != "$LOCAL_BIN/$KITTY_STOW_PATH" ]]; then
+if [[ $(which kitty) != "$LOCAL_BIN/$KITTY_BIN" ]]; then
   echo "Not manually installed. No check needed."
   exit 0
 fi
@@ -20,6 +21,6 @@ if [[ "$latest_version" == "$current_version" ]]; then
 fi
 
 echo "New version found: $latest_version. Current version is $current_version. New version will be downloaded"
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=/tmp/kitty launch=n
-sudo mv /tmp/kitty /usr/local/stow
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=/tmp launch=n
+sudo rsync -r /tmp/kitty.app/ $KITTY_INSTALLATION_PATH --delete-after
 kitty -v
