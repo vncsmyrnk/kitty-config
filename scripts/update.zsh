@@ -4,7 +4,7 @@
 
 LOCAL_BIN=${LOCAL_BIN:-"/usr/local/bin"}
 KITTY_BIN=${KITTY_BIN:-"kitty"}
-KITTY_INSTALLATION_PATH=${KITTY_INSTALLATION_PATH:-/usr/local/stow/kitty.app}
+KITTY_INSTALLATION_PATH=${KITTY_INSTALLATION_PATH:-/usr/local/stow/kitty}
 
 if [[ $(which kitty) != "$LOCAL_BIN/$KITTY_BIN" ]]; then
   echo "Not manually installed. No check needed."
