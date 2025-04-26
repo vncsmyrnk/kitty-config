@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 # Updates manually installed kitty
 

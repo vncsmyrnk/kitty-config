@@ -1,6 +1,6 @@
 os := `cat /etc/os-release | grep "^NAME=" | cut -d "=" -f2 | tr -d '"'`
 
-scripts_path := "${SU_SCRIPTS_PATH:-$HOME/.config/util/scripts}/kitty"
+on_update_scripts_path := "${SU_SCRIPTS_ON_UPDATE_PATH:-$HOME/.config/util/scripts/on-update}"
 
 default:
   just --list
@@ -41,10 +41,10 @@ install-font:
 
 config:
   @rm -f ~/.config/kitty/kitty.conf
-  mkdir -p {{home_dir()}}/.config/kitty {{scripts_path}}
+  mkdir -p {{home_dir()}}/.config/kitty {{on_update_scripts_path}}
   stow -t {{home_dir()}}/.config/kitty . --ignore=scripts
-  stow -t {{scripts_path}} scripts
+  stow -t {{on_update_scripts_path}} scripts
 
 unset-config:
   stow -D -t {{home_dir()}}/.config/kitty . --ignore=scripts
-  stow -D -t {{scripts_path}} scripts
+  stow -D -t {{on_update_scripts_path}} scripts
