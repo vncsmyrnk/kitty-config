@@ -6,16 +6,15 @@ LOCAL_BIN=${LOCAL_BIN:-"/usr/local/bin"}
 KITTY_BIN=${KITTY_BIN:-"kitty"}
 KITTY_INSTALLATION_PATH=${KITTY_INSTALLATION_PATH:-/usr/local/stow/kitty}
 
-if [[ $(which kitty) != "$LOCAL_BIN/$KITTY_BIN" ]]; then
+if [ $(which kitty) != "$LOCAL_BIN/$KITTY_BIN" ]; then
   echo "Not manually installed. No check needed."
   exit 0
 fi
 
-latest_version=$(curl -sL https://api.github.com/repos/kovidgoyal/kitty/releases/latest | jq -r '.tag_name')
-latest_version="${latest_version:1}"
+latest_version=$(curl -sL https://api.github.com/repos/kovidgoyal/kitty/releases/latest | jq -r '.tag_name' | cut -c 2-)
 current_version=$(kitty -v | awk '{ print $2 }')
 
-if [[ "$latest_version" == "$current_version" ]]; then
+if [ "$latest_version" = "$current_version" ]; then
   echo "kitty is already on latest version"
   exit 0
 fi
