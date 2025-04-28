@@ -11,8 +11,13 @@ if [ $(which kitty) != "$LOCAL_BIN/$KITTY_BIN" ]; then
   exit 0
 fi
 
-latest_version=$(curl -sL https://api.github.com/repos/kovidgoyal/kitty/releases/latest | jq -r '.tag_name' | cut -c 2-)
 current_version=$(kitty -v | awk '{ print $2 }')
+latest_version=$(curl -sL https://api.github.com/repos/kovidgoyal/kitty/releases/latest | jq -r '.tag_name' | cut -c 2-)
+
+if [ -z "$latest_version" ]; then
+  echo "failed to fetch for updates using the github api"
+  exit 1
+fi
 
 if [ "$latest_version" = "$current_version" ]; then
   echo "kitty is already on latest version"
