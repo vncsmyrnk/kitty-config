@@ -37,6 +37,7 @@ install-font:
   fi
   curl -LO --output-dir /tmp https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
   unzip /tmp/JetBrainsMono.zip -d /tmp/JetBrainsMono
+  sudo mkdir -p /usr/local/share/fonts/jetbrains
   sudo cp -r /tmp/JetBrainsMono /usr/local/share/fonts/jetbrains
 
 config:
